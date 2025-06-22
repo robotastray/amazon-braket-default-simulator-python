@@ -38,12 +38,14 @@ class Circuit:
         self,
         instructions: Optional[list[GateOperation]] = None,
         results: Optional[list[Results]] = None,
+        verbatim_markers: Optional[list] = None,
     ):
         self.instructions = []
         self.results = []
         self.qubit_set = set()
         self.measured_qubits = []
         self.target_classical_indices = []
+        self.verbatim_markers = [] 
 
         if instructions:
             for instruction in instructions:
@@ -52,6 +54,11 @@ class Circuit:
         if results:
             for result in results:
                 self.add_result(result)
+        
+        # Add verbatim markers if provided
+        if verbatim_markers:
+            for marker in verbatim_markers:
+                self.add_verbatim_marker(marker)
 
     def add_instruction(self, instruction: [GateOperation, KrausOperation]) -> None:
         """
