@@ -698,8 +698,14 @@ class Interpreter:
 class VerbatimBoxStart(QuantumStatement):
     def __repr__(self):
         return "StartVerbatim"
+    @property
+    def qubit_count(self) -> int:
+        return 0
 
 @dataclass
 class VerbatimBoxEnd(QuantumStatement):
     def __repr__(self):
         return "EndVerbatim"
+    @property
+    def qubit_count(self) -> int:
+        return 0
