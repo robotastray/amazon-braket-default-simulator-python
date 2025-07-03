@@ -1680,7 +1680,6 @@ def test_verbatim_pragma():
     circuit = Interpreter().build_circuit(without_verbatim)
     sim_wo_verbatim = StateVectorSimulation(2, 1, 1)
     sim_wo_verbatim.evolve(circuit.instructions)
-
     assert np.allclose(
         sim_w_verbatim.state_vector,
         sim_wo_verbatim.state_vector,
@@ -2273,3 +2272,21 @@ def test_verbatim_box_end():
     assert isinstance(vbs, VerbatimBoxEnd)
     assert repr(vbs) == "EndVerbatim"
     assert vbs.qubit_count == 0
+
+def test_verbatim_box():
+    qasm_with_verbatim = """
+        OPENQASM 3.0;
+        #pragma braket verbatim
+        box {
+        h $0;
+        cnot $0, $1;
+        }
+    """
+    context= Interpreter().run(qasm_with_verbatim)
+   
+    is_verbatim  = context.is_verbatim_box
+
+    assert isinstance(context.circuit.instructions[0], Hadamard)
+    assert isinstance(context.circuit.instructions[1], CX)
+    assert isinstance(is_verbatim, bool)
+    assert is_verbatim == False
