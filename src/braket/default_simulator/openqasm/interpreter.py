@@ -184,6 +184,7 @@ class Interpreter:
             self.visit(stmt)
 
 
+
     @visit.register
     def _(self, node: ClassicalDeclaration) -> None:
         node_type = self.visit(node.type)
@@ -612,6 +613,7 @@ class Interpreter:
             self.context.add_noise_instruction(noise_instruction, target, probabilities)
         elif node.command.startswith("braket verbatim"):
             self.context.in_verbatim_box = True
+
         else:
             raise NotImplementedError(f"Pragma '{node.command}' is not supported")
 
