@@ -180,7 +180,7 @@ class Interpreter:
             ):
                 if i + 1 < len(node.statements) and not isinstance(node.statements[i + 1], Box):
                     raise ValueError("braket verbatim pragma must be followed by a box statement")
-        self.visit(node.statements) 
+        self.visit(node.statements)  
 
 
 
